@@ -1,0 +1,38 @@
+.body{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.displayAction,
+.main{
+  display: grid;
+  grid-template-columns: 200px 150px 100px;
+  column-gap: 15px;
+  row-gap: 15px;
+  align-items: center;
+}
+
+.main{
+  margin-bottom: 15px;
+  align-items: stretch;
+}
+
+.txt-Box, .date-Box, .addBut, .deleteBut{
+  font-size: 15px;
+  padding: 8px;
+}
+
+.addBut{
+  color: white;
+  background-color: rgb(1, 169, 1);
+  border-color: rgb(1, 117, 1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.deleteBut{
+  color: white;
+  background-color: rgb(203, 1, 1);
+  border-color: rgb(134, 0, 0);
+  border-radius: 5px;
+  cursor: pointer;
+}
