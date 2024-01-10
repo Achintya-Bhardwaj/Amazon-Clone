@@ -88,6 +88,5 @@ addToCartBut.forEach((button) => {
 
     cartQuantity.innerHTML = cartTotalQuantity;
 
-    console.log(cart);
   });
 });
