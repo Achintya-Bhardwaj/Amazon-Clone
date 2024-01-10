@@ -1,5 +1,5 @@
 const productGrid = document.querySelector('.products-grid');
-
+const cartQuantity = document.querySelector('.cart-quantity');
 
 
 let htmlAccumulator = '';
@@ -80,6 +80,13 @@ addToCartBut.forEach((button) => {
         quantity: 1
       });
     }
+
+    let cartTotalQuantity = 0;
+    cart.forEach((item) => {
+      cartTotalQuantity += item.quantity;
+    });
+
+    cartQuantity.innerHTML = cartTotalQuantity;
 
     console.log(cart);
   });
