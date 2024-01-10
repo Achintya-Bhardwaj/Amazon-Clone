@@ -96,7 +96,7 @@ addToCartBut.forEach((button) => {
     showAddedPic.classList.add('added-to-cart-active');
     setTimeout(() => {
       showAddedPic.classList.remove('added-to-cart-active');
-    }, 4000);
+    }, 3000);
     quantityDropdown.value = 1;
   });
 });

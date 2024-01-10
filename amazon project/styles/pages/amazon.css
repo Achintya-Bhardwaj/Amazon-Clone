@@ -143,7 +143,7 @@
 
 .added-to-cart-active{
   opacity: 1;
-  animation: fadeOut 4s ease-in-out;
+  animation: fadeOut 3s ease-in-out;
 }
 
 @keyframes fadeOut {
