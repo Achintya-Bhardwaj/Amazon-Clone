@@ -61,6 +61,7 @@ productGrid.innerHTML = htmlAccumulator;
 const addToCartBut = document.querySelectorAll('.add-to-cart-button');
 
 addToCartBut.forEach((button) => {
+  let timeOutId;
   button.addEventListener('click', () => {
     // const productId = button.dataset.productId;
     const { productId } = button.dataset;
@@ -94,9 +95,17 @@ addToCartBut.forEach((button) => {
 
     cartQuantity.innerHTML = cartTotalQuantity;
     showAddedPic.classList.add('added-to-cart-active');
-    setTimeout(() => {
+    
+    if(timeOutId){
+      clearTimeout(timeOutId);
+      showAddedPic.classList.remove('added-to-cart-active');
+      showAddedPic.offsetWidth;
+      showAddedPic.classList.add('added-to-cart-active');
+    }
+    timeOutId = setTimeout(() => {
       showAddedPic.classList.remove('added-to-cart-active');
     }, 3000);
+   
     quantityDropdown.value = 1;
   });
 });
