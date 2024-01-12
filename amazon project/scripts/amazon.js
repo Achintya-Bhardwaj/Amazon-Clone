@@ -61,8 +61,11 @@ productGrid.innerHTML = htmlAccumulator;
 const addToCartBut = document.querySelectorAll('.add-to-cart-button');
 
 addToCartBut.forEach((button) => {
+
   let timeOutId;
+
   button.addEventListener('click', () => {
+
     // const productId = button.dataset.productId;
     const { productId } = button.dataset;
 
