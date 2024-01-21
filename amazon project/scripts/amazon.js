@@ -84,7 +84,8 @@ addToCartBut.forEach((button) => {
 
     addToCart(productId);
     updateCartQuantity();
-/* "added" popup transition*************/
+    
+    /* "added" popup transition*************/
     const showAddedPic = document.querySelector(`.added-to-cart-${productId}`);
     showAddedPic.classList.add('added-to-cart-active');
     
@@ -97,6 +98,6 @@ addToCartBut.forEach((button) => {
     timeOutId = setTimeout(() => {
       showAddedPic.classList.remove('added-to-cart-active');
     }, 3000);
-/***************/    
+    /***************/    
   });
 });
