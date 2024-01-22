@@ -1,9 +1,9 @@
-import { cart } from '../data/cart.js';
+import { cart, removeFormCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 
 const orderSummary = document.querySelector('.order-summary');
 
-let htmlAccumulator;
+let htmlAccumulator = '';
 
 cart.forEach((cartItem) => {
 
@@ -18,7 +18,7 @@ cart.forEach((cartItem) => {
   });
 
   htmlAccumulator += `
-    <div class="cart-item-container">
+    <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
       <div class="delivery-date">
         Delivery date: Tuesday, June 21
       </div>
@@ -41,7 +41,7 @@ cart.forEach((cartItem) => {
             <span class="update-quantity-link link-primary">
               Update
             </span>
-            <span class="delete-quantity-link link-primary">
+            <span class="delete-quantity-link link-primary" data-product-id="${matchingProduct.id}">
               Delete
             </span>
           </div>
@@ -97,3 +97,13 @@ cart.forEach((cartItem) => {
 });
 
 orderSummary.innerHTML = htmlAccumulator;
+
+document.querySelectorAll('.delete-quantity-link').forEach((link) =>{
+  link.addEventListener('click', () => {
+    const { productId } = link.dataset;
+    removeFormCart(productId);
+    
+    const container = document.querySelector(`.js-cart-item-container-${productId}`);
+    container.remove();
+  });
+});
