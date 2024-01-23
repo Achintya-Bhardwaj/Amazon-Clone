@@ -2,9 +2,9 @@ import { cart, removeFormCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 
 const orderSummary = document.querySelector('.order-summary');
+const checkoutCartCount = document.querySelector('.return-to-home-link');
 
 let htmlAccumulator = '';
-
 cart.forEach((cartItem) => {
 
   const { productId } = cartItem;
@@ -97,6 +97,7 @@ cart.forEach((cartItem) => {
 });
 
 orderSummary.innerHTML = htmlAccumulator;
+checkoutCartQuantity();
 
 document.querySelectorAll('.delete-quantity-link').forEach((link) =>{
   link.addEventListener('click', () => {
@@ -105,5 +106,18 @@ document.querySelectorAll('.delete-quantity-link').forEach((link) =>{
     
     const container = document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
+
+    checkoutCartQuantity();
   });
 });
+
+function checkoutCartQuantity(){
+  let cartTotalQuantity = 0;
+
+  cart.forEach((item) => {
+    cartTotalQuantity += item.quantity;
+  });
+
+  checkoutCartCount.innerHTML = `${cartTotalQuantity} items`;
+}
+
