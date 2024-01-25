@@ -18,7 +18,7 @@ cart.forEach((cartItem) => {
   });
 
   htmlAccumulator += `
-    <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+    <div class="cart-item-container js-cart-item-container-${matchingProduct.id} ">
       <div class="delivery-date">
         Delivery date: Tuesday, June 21
       </div>
@@ -38,8 +38,12 @@ cart.forEach((cartItem) => {
             <span>
               Quantity: <span class="quantity-label">${cartItem.quantity}</span>
             </span>
-            <span class="update-quantity-link link-primary">
+            <span class="update-quantity-link link-primary" data-product-id="${matchingProduct.id}">
               Update
+            </span>
+            <input class="quantity-input checkout-input">  
+            <span class="save-quantity-link link-primary checkout-input">
+            Save
             </span>
             <span class="delete-quantity-link link-primary" data-product-id="${matchingProduct.id}">
               Delete
@@ -121,3 +125,10 @@ function checkoutCartQuantity(){
   checkoutCartCount.innerHTML = `${cartTotalQuantity} items`;
 }
 
+document.querySelectorAll('.update-quantity-link').forEach((link) => {
+  link.addEventListener('click', () => {
+    const { productId } = link.dataset;
+    const container = document.querySelector(`.js-cart-item-container-${productId}`);
+    container.classList.add('is-editing-quantity');
+  });
+});

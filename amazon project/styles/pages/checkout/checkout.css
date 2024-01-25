@@ -134,6 +134,18 @@
   }
 }
 
+.quantity-input{
+  width: 30px;
+}
+
+.checkout-input{
+  display: none;
+}
+
+.is-editing-quantity .checkout-input{
+  display: initial;
+}
+
 .delivery-options-title {
   font-weight: 700;
   margin-bottom: 10px;
