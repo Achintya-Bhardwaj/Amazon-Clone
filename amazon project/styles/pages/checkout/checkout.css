@@ -146,6 +146,10 @@
   display: initial;
 }
 
+.is-editing-quantity .update-quantity-link, .is-editing-quantity .quantity-label {
+  display: none;
+}
+
 .delivery-options-title {
   font-weight: 700;
   margin-bottom: 10px;
