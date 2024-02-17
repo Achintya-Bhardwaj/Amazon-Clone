@@ -1,5 +1,9 @@
 export let cart = JSON.parse(localStorage.getItem('cart')) ||
-  [];
+  [{
+    productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+    quantity: 2,
+    deliveryOptionId: 2
+  }];
 
 export function saveToStorage(){
   localStorage.setItem('cart', JSON.stringify(cart));
@@ -23,7 +27,8 @@ export function addToCart(productId){
   } else {
     cart.push({
       productId,
-      quantity: quantityDropdownValue
+      quantity: quantityDropdownValue,
+      deliveryOptionId: '1'
     });
   }
   quantityDropdown.value = 1;
