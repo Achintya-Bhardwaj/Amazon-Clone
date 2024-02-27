@@ -1,4 +1,4 @@
-import { cart, removeFormCart,saveToStorage } from '../data/cart.js';
+import { cart, removeFromCart, saveToStorage, updateDeliveryOption } from '../data/cart.js';
 import { products } from '../data/products.js';
 import formatCurrency from './utils/money.js';
 import { deliveryOptions } from '../data/deliveryOptions.js';
@@ -19,9 +19,8 @@ cart.forEach((cartItem) => {
       matchingProduct = product;
     }
   });
-
-  let deliveryOption;
-
+  
+  let deliveryOption = 2;
   deliveryOptions.forEach((option) => {
     if (option.id === cartItem.deliveryOptionId) {
       deliveryOption = option;
@@ -82,7 +81,7 @@ checkoutCartQuantity();
 
 function deliveryDateHTML(matchingProduct, cartItem){
   let dateHTML = '';
-
+  
   deliveryOptions.forEach((deliveryOption) => {
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
@@ -93,7 +92,9 @@ function deliveryDateHTML(matchingProduct, cartItem){
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
     dateHTML += `
-      <div class="delivery-option">
+      <div class="delivery-option js-delivery-option"
+        data-product-id = "${matchingProduct.id}"
+        data-delivery-option-id = "${deliveryOption.id}">
         <input type="radio"
           ${isChecked ? 'checked' : ''}
           class="delivery-option-input"
@@ -115,7 +116,7 @@ function deliveryDateHTML(matchingProduct, cartItem){
 document.querySelectorAll('.delete-quantity-link').forEach((link) =>{
   link.addEventListener('click', () => {
     const { productId } = link.dataset;
-    removeFormCart(productId);
+    removeFromCart(productId);
     
     const container = document.querySelector(`.js-cart-item-container-${productId}`);
     container.remove();
@@ -172,5 +173,13 @@ document.querySelectorAll('.quantity-input').forEach((input) => {
    if (event.key === 'Enter') {
     saveButtonJs(productId);
    }
+  });
+});
+
+document.querySelectorAll('.js-delivery-option').forEach((element) => {
+  element.addEventListener('click', () => {
+    const { productId, deliveryOptionId } = element.dataset;
+    console.log(element.dataset);
+    updateDeliveryOption(productId, deliveryOptionId);
   });
 });
