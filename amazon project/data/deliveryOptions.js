@@ -17,10 +17,10 @@ export function getDeliveryOption(deliveryOptionId) {
   let deliveryOption;
 
     deliveryOptions.forEach((option) => {
-      if (option.id === deliveryOptionId) {
+      if (option.id === Number(deliveryOptionId)) {
         deliveryOption = option;
       }
     });
-  
+    
     return deliveryOption;
 }

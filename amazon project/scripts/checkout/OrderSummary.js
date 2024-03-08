@@ -3,6 +3,7 @@ import { products, getProduct } from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import { renderPaymentSummary } from './PaymentSummary.js';
 
 const orderSummary = document.querySelector('.order-summary');
 const checkoutCartCount = document.querySelector('.return-to-home-link');
@@ -79,7 +80,7 @@ export function renderOrderSummary(){
 
       const price = deliveryOption.priceInCents === 0 ? 'FREE' : `${formatCurrency(deliveryOption.priceInCents)} -`
       
-      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
+      const isChecked = deliveryOption.id === Number(cartItem.deliveryOptionId);
 
       dateHTML += `
         <div class="delivery-option js-delivery-option"
@@ -112,6 +113,8 @@ export function renderOrderSummary(){
       container.remove();
 
       checkoutCartQuantity();
+
+      renderPaymentSummary();
     });
   });
 
@@ -171,6 +174,7 @@ export function renderOrderSummary(){
       const { productId, deliveryOptionId } = element.dataset;
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 }
