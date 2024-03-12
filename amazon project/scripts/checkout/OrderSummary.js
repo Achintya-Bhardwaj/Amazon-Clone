@@ -1,8 +1,7 @@
 import { cart, removeFromCart, saveToStorage, updateDeliveryOption } from '../../data/cart.js';
 import { products, getProduct } from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
-import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import { deliveryOptions, getDeliveryOption, getDeliveryDate } from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './PaymentSummary.js';
 
 const orderSummary = document.querySelector('.order-summary');
@@ -18,14 +17,10 @@ export function renderOrderSummary(){
 
     const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId)
 
-    const today = dayjs();
-    const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-    const dateFormat = deliveryDate.format('dddd, MMMM D');
-
     htmlAccumulator += `
       <div class="cart-item-container js-cart-item-container-${matchingProduct.id} ">
         <div class="delivery-date">
-          Delivery date: ${dateFormat}
+          Delivery date: ${getDeliveryDate(deliveryOption)}
         </div>
 
         <div class="cart-item-details-grid">
@@ -74,9 +69,6 @@ export function renderOrderSummary(){
     let dateHTML = '';
     
     deliveryOptions.forEach((deliveryOption) => {
-      const today = dayjs();
-      const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-      const dateFormat = deliveryDate.format('dddd, MMMM D');
 
       const price = deliveryOption.priceInCents === 0 ? 'FREE' : `${formatCurrency(deliveryOption.priceInCents)} -`
       
@@ -92,7 +84,7 @@ export function renderOrderSummary(){
             name="delivery-option-${matchingProduct.id}">
           <div>
             <div class="delivery-option-date">
-              ${dateFormat}
+              ${getDeliveryDate(deliveryOption)}
             </div>
             <div class="delivery-option-price">
               ${price} Shipping
@@ -113,8 +105,8 @@ export function renderOrderSummary(){
       container.remove();
 
       checkoutCartQuantity();
-
       renderPaymentSummary();
+      totalItemSummary()
     });
   });
 
@@ -151,6 +143,8 @@ export function renderOrderSummary(){
     });
     saveToStorage();
     checkoutCartQuantity();
+    renderPaymentSummary();
+    totalItemSummary()
   }
 
   document.querySelectorAll('.save-quantity-link').forEach((link) => {
